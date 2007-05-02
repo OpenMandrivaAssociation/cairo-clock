@@ -18,6 +18,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	gtk2-devel >= 2.2.0 pango-devel >= 1.2.0 fontconfig-devel
 BuildRequires:	libtool autoconf automake >= 1.9.6 librsvg-devel
 BuildRequires:	libglade2.0-devel
+BuildRequires:	desktop-file-utils
 
 %description
 Cairo-Clock is a desktop clock using cairo for rendering and taking advantage
