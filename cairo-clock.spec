@@ -1,6 +1,6 @@
 %define	name	cairo-clock
 %define	version	0.3.2
-%define	release	%mkrel 4
+%define	release	%mkrel 5
 %define	Summary	Cairo-rendered on-screen clock
 
 Name:		%{name}
@@ -15,21 +15,20 @@ Source13:	%{name}-48.png
 License:	GPL
 Group:		Graphical desktop/GNOME
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-Requires:	xcompmgr
 BuildRequires:	gtk2-devel >= 2.2.0 pango-devel >= 1.2.0 fontconfig-devel
 BuildRequires:	libtool autoconf automake >= 1.9.6 librsvg-devel
+BuildRequires:	libglade2.0-devel
 
 %description
-Cairo-Clock is a desktop clock using cairo for rendering 
-and taking advantage of the Composite extension on
-newer Xorg servers.
+Cairo-Clock is a desktop clock using cairo for rendering and taking advantage
+of the Composite extension on newer Xorg servers.
 
 %prep
 %setup -q
 
 %build
 export LIBS="-lXext -lX11"
-%configure
+%configure2_5x
 %make
 
 %install
@@ -39,7 +38,7 @@ rm -rf %{buildroot}
 
 install -d %{buildroot}%{_menudir}
 cat <<EOF > %{buildroot}%{_menudir}/%{name}
-?package(%{name}):command="%{name}" \
+?package(%{name}):command="%{name} -w 127 -g 127" \
 	icon=%{name}.png \
 	needs="x11" \
 	section="More Applications/Games/Toys" \
@@ -57,19 +56,15 @@ install -m644 %{SOURCE11} -D %{buildroot}%{_miconsdir}/%{name}.png
 install -m644 %{SOURCE12} -D %{buildroot}%{_iconsdir}/%{name}.png
 install -m644 %{SOURCE13} -D %{buildroot}%{_liconsdir}/%{name}.png
 
+#clock doesn't display at even resolutions
+perl -pi -e 's|Exec=cairo-clock|Exec=cairo-clock -w 127 -g 127||g' %buildroot/%{_datadir}/applications/cairo-clock.desktop
+
 cat > README.urpmi << EOF
 
-Please note that you need composite extension enabled in X.org or Xgl.
+Cairo-clock requires the composite extension and a compositing manager
+(compiz, beryl, xcompmgr, or properly enabled metacity) to function.
 
-Edit your %{_sysconfdir}/X11/xorg.conf and add this
-
-Section "Extensions"
-	Option "Composite" "Enable"
-	Option "RENDER" "Enable"
-EndSection
-
-restart X and run xcompmgr -c& before to run cairo-clock.
-
+Please use Drak3D to enable these features.
 EOF
 
 %clean
