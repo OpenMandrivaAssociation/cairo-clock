@@ -1,6 +1,6 @@
 %define	name	cairo-clock
-%define	version	0.3.2
-%define	release	%mkrel 5
+%define	version	0.3.3
+%define	release	%mkrel 1
 %define	Summary	Cairo-rendered on-screen clock
 
 Name:		%{name}
@@ -8,7 +8,7 @@ Version:	%{version}
 Release:	%{release}
 Summary:	%{Summary}
 URL:		http://macslow.mine.nu/projects/cairo-clock/ 
-Source0:	http://macslow.thepimp.net/projects/cairo-clock/%{name}-%{version}.tar.bz2
+Source0:	http://macslow.thepimp.net/projects/cairo-clock/%{name}-%{version}.tar.gz
 Source11:	%{name}-16.png
 Source12:	%{name}-32.png
 Source13:	%{name}-48.png
@@ -36,6 +36,8 @@ export LIBS="-lXext -lX11"
 rm -rf %{buildroot}
 
 %{makeinstall_std}
+
+%find_lang %{name}
 
 install -d %{buildroot}%{_menudir}
 cat <<EOF > %{buildroot}%{_menudir}/%{name}
@@ -79,7 +81,7 @@ rm -rf %{buildroot}
 /sbin/ldconfig
 %{clean_menus}
 
-%files
+%files -f %{name}.lang
 %defattr(-,root,root)
 %doc AUTHORS BUGS NEWS README TODO README.urpmi
 %{_bindir}/%{name}
