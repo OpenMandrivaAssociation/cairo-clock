@@ -42,6 +42,7 @@ rm -rf %{buildroot}
 desktop-file-install	--vendor="" \
 			--remove-category="Application" \
 			--add-category="Clock" \
+			--add-category="GTK" \
 			--dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/*
 
 install -m644 %{SOURCE11} -D %{buildroot}%{_miconsdir}/%{name}.png
