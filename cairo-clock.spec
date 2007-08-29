@@ -1,6 +1,6 @@
 %define	name	cairo-clock
 %define	version	0.3.3
-%define	release	%mkrel 1
+%define	release	%mkrel 2
 %define	Summary	Cairo-rendered on-screen clock
 
 Name:		%{name}
@@ -39,20 +39,9 @@ rm -rf %{buildroot}
 
 %find_lang %{name}
 
-install -d %{buildroot}%{_menudir}
-cat <<EOF > %{buildroot}%{_menudir}/%{name}
-?package(%{name}):command="%{name} -w 127 -g 127" \
-	icon=%{name}.png \
-	needs="x11" \
-	section="More Applications/Games/Toys" \
-	title="Cairo-clock"\
-	longtitle="%{Summary}" \
-	xdg="true"
-EOF
-
 desktop-file-install	--vendor="" \
 			--remove-category="Application" \
-			--add-category="X-MandrivaLinux-MoreApplications-Games-Toys" \
+			--add-category="Clock" \
 			--dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/*
 
 install -m644 %{SOURCE11} -D %{buildroot}%{_miconsdir}/%{name}.png
@@ -92,5 +81,3 @@ rm -rf %{buildroot}
 %{_mandir}/man1/%{name}.1*
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/%{name}/*
-%{_menudir}/%{name}
-
