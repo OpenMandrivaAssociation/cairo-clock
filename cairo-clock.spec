@@ -14,7 +14,6 @@ Source12:	%{name}-32.png
 Source13:	%{name}-48.png
 License:	GPL
 Group:		Graphical desktop/GNOME
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	gtk2-devel >= 2.2.0 pango-devel >= 1.2.0 fontconfig-devel
 BuildRequires:	libtool autoconf automake >= 1.9.6 librsvg-devel
 BuildRequires:	libglade2.0-devel
