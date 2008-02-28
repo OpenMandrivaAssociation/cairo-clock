@@ -1,6 +1,6 @@
 %define	name	cairo-clock
-%define	version	0.3.3
-%define	release	%mkrel 2
+%define	version	0.3.4
+%define	release	%mkrel 1
 %define	Summary	Cairo-rendered on-screen clock
 
 Name:		%{name}
