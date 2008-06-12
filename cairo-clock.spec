@@ -67,13 +67,17 @@ rm -rf %{buildroot}
 %if %mdkversion < 200900
 /sbin/ldconfig
 %endif
+%if %mdkversion < 200900
 %{update_menus}
+%endif
 
 %postun
 %if %mdkversion < 200900
 /sbin/ldconfig
 %endif
+%if %mdkversion < 200900
 %{clean_menus}
+%endif
 
 %files -f %{name}.lang
 %defattr(-,root,root)
