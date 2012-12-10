@@ -1,23 +1,28 @@
 %define	name	cairo-clock
 %define	version	0.3.4
-%define	release	%mkrel 5
+%define	release	5
 %define	Summary	Cairo-rendered on-screen clock
 
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
-Summary:	%{Summary}
+Name:	%{name}
+Version:		%{version}
+Release:		%{release}
+Summary:		%{Summary}
 URL:		http://macslow.mine.nu/projects/cairo-clock/ 
-Source0:	http://macslow.thepimp.net/projects/cairo-clock/%{name}-%{version}.tar.gz
+Source0:		http://macslow.thepimp.net/projects/cairo-clock/%{name}-%{version}.tar.gz
 Source11:	%{name}-16.png
 Source12:	%{name}-32.png
 Source13:	%{name}-48.png
-License:	GPL
+License:		GPLv2
 Group:		Graphical desktop/GNOME
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires:	gtk2-devel >= 2.2.0 pango-devel >= 1.2.0 fontconfig-devel
-BuildRequires:	libtool autoconf automake >= 1.9.6 librsvg-devel
-BuildRequires:	libglade2.0-devel
+BuildRequires:	pkgconfig(gdk-2.0) >= 2.2.0 
+BuildRequires:	pkgconfig(pango) >= 1.2.0 
+BuildRequires:	pkgconfig(fontconfig)
+BuildRequires:	libtool 
+BuildRequires:	autoconf 
+BuildRequires:	automake >= 1.9.6
+BuildRequires:	pkgconfig(librsvg-2.0)
+BuildRequires:	pkgconfig(libglade-2.0) 
+BuildRequires:	perl-XML-Parser
 BuildRequires:	desktop-file-utils
 
 %description
@@ -26,6 +31,7 @@ of the Composite extension on newer Xorg servers.
 
 %prep
 %setup -q
+sed -ie 's/-Wl, --export-dynamic/-Wl,--export-dynamic/g' src/Makefile*
 
 %build
 export LIBS="-lXext -lX11"
@@ -33,8 +39,6 @@ export LIBS="-lXext -lX11"
 %make
 
 %install
-rm -rf %{buildroot}
-
 %{makeinstall_std}
 
 %find_lang %{name}
@@ -60,27 +64,8 @@ Cairo-clock requires the composite extension and a compositing manager
 Please use Drak3D to enable these features.
 EOF
 
-%clean
-rm -rf %{buildroot}
-
-%post 
-%if %mdkversion < 200900
-/sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%{update_menus}
-%endif
-
-%postun
-%if %mdkversion < 200900
-/sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%{clean_menus}
-%endif
 
 %files -f %{name}.lang
-%defattr(-,root,root)
 %doc AUTHORS BUGS NEWS README TODO README.urpmi
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
@@ -90,3 +75,4 @@ rm -rf %{buildroot}
 %{_mandir}/man1/%{name}.1*
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/%{name}/*
+
