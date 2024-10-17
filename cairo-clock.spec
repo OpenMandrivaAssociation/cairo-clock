@@ -7,7 +7,7 @@ Name:	%{name}
 Version:		%{version}
 Release:		%{release}
 Summary:		%{Summary}
-URL:		http://macslow.mine.nu/projects/cairo-clock/ 
+URL:		https://macslow.mine.nu/projects/cairo-clock/ 
 Source0:		http://macslow.thepimp.net/projects/cairo-clock/%{name}-%{version}.tar.gz
 Source11:	%{name}-16.png
 Source12:	%{name}-32.png
