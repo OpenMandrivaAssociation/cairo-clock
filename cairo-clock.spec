@@ -14,6 +14,8 @@ Source12:	%{name}-32.png
 Source13:	%{name}-48.png
 License:		GPLv2
 Group:		Graphical desktop/GNOME
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
 BuildRequires:	pkgconfig(gdk-2.0) >= 2.2.0 
 BuildRequires:	pkgconfig(pango) >= 1.2.0 
 BuildRequires:	pkgconfig(fontconfig)
